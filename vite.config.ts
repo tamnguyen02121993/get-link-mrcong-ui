@@ -6,6 +6,6 @@ export default defineConfig(({ command, mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   return {
     plugins: [react()],
-    define: process.env.NODE_ENV === "development" ? { global: "window" } : {},
+    define: { global: "window" },
   };
 });
