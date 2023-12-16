@@ -5,7 +5,6 @@ import { QUERY_KEYS } from "../commons/keys";
 import { getCategories } from "../apis";
 import { Category } from "../interfaces";
 import { Loading } from ".";
-import { useState } from "react";
 import { useCategoriesStore, usePaginationStore } from "../store";
 
 const Categories: React.FC = () => {

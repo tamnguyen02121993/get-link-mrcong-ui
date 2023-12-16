@@ -1,8 +1,7 @@
-import { useNavigate, useRouteError } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCategoriesStore, usePaginationStore } from "../store";
 
 const Error: React.FC = () => {
-  const error = useRouteError();
   const navigate = useNavigate();
   const { setSelectedCategory } = useCategoriesStore((state) => state);
   const { setPage } = usePaginationStore((state) => state);
