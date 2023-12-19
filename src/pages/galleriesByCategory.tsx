@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Gallery } from "../interfaces";
+import { GalleriesWithTrending, Gallery } from "../interfaces";
 import { QUERY_KEYS } from "../commons/keys";
 import { getGalleriesByCategory } from "../apis";
 import { Navigate, useParams } from "react-router-dom";
@@ -14,16 +14,12 @@ const Galleries: React.FC = () => {
   const { selectedCategory } = useCategoriesStore((state) => state);
   const { page: currentPage } = usePaginationStore((state) => state);
 
-  const {
-    data: galleries = [],
-    isLoading,
-    isLoadingError,
-  } = useQuery<Gallery[]>({
+  const { data, isLoading, isLoadingError } = useQuery<GalleriesWithTrending>({
     queryKey: [QUERY_KEYS.GALLERIES, { category, page }],
     queryFn: () =>
       getGalleriesByCategory(
         selectedCategory ? selectedCategory.category : category!,
-        currentPage ? currentPage : Number.isNaN(page) ? 1 : +page!
+        currentPage ? currentPage : Number.isNaN(Number(page)) ? 1 : +page!
       ),
     staleTime: import.meta.env.VITE_APP_STALE_TIME,
   });
@@ -35,7 +31,7 @@ const Galleries: React.FC = () => {
         {selectedCategory &&
           !isLoading &&
           !isLoadingError &&
-          galleries.map((gallery: Gallery) => (
+          data?.items.map((gallery: Gallery) => (
             <GalleryItem gallery={gallery} key={gallery.title} />
           ))}
       </section>

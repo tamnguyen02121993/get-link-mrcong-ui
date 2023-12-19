@@ -6,10 +6,8 @@ import { FiChevronLeft } from "react-icons/fi";
 import { getGalleryDetail } from "../apis";
 import { QUERY_KEYS } from "../commons/keys";
 import { GalleryDetail } from "../interfaces";
-import { useInitData } from "../hooks";
 import { Loading } from "../components";
 const GalleryDetailComp: React.FC = () => {
-  useInitData();
   const navigate = useNavigate();
   const [params] = useSearchParams();
 
@@ -17,14 +15,11 @@ const GalleryDetailComp: React.FC = () => {
     data: galleryDetail,
     isLoading,
     isLoadingError,
-    error,
   } = useQuery<GalleryDetail>({
     queryKey: [QUERY_KEYS.GALLERY_DETAIL, { link: params.get("link") }],
     queryFn: () => getGalleryDetail(params.get("link") || ""),
     staleTime: import.meta.env.VITE_APP_STALE_TIME,
   });
-  console.log(error);
-  console.log(isLoadingError);
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const handleOnClick = (src: string) => {

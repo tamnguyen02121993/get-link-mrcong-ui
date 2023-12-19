@@ -23,7 +23,7 @@ const Categories: React.FC = () => {
     setSelectedCategory(cat);
     setPage(1);
     if (cat) {
-      navigate(`/${cat.category.toLowerCase()}/1`);
+      navigate(`/category/${cat.category.toLowerCase()}/page/1`);
     }
   };
   return (

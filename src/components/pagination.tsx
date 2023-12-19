@@ -1,9 +1,10 @@
 import { createPortal } from "react-dom";
 import { FiChevronLeft, FiChevronRight, FiChevronUp } from "react-icons/fi";
 import { useCategoriesStore, usePaginationStore } from "../store";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Pagination = () => {
+  const { tag, category } = useParams();
   const { page, canNext, canPrev, setPage } = usePaginationStore(
     (state) => state
   );
@@ -18,12 +19,23 @@ const Pagination = () => {
   };
   const handlePreviousPage = () => {
     setPage(page! - 1);
-    navigate(`/${selectedCategory?.category}/${page! - 1}`);
+    navigateLink("prev");
   };
+  const navigateLink = (direction: "next" | "prev") => {
+    let futurePage = page! + 1;
+    if (direction === "prev") futurePage = page! - 1;
 
+    if (category) {
+      navigate(`/category/${selectedCategory?.category}/page/${futurePage}`);
+    } else if (tag) {
+      navigate(`/tag/${tag}/page/${futurePage}`);
+    } else {
+      navigate(`/page/${futurePage}`);
+    }
+  };
   const handleNextPage = () => {
     setPage(page! + 1);
-    navigate(`/${selectedCategory?.category}/${page! + 1}`);
+    navigateLink("next");
   };
   return createPortal(
     <div className="fixed bottom-0 left-0 w-full bg-pink-300 text-white z-50 flex items-center rounded-none shadow-md xl:bottom-5 xl:right-24 xl:w-56 xl:left-[unset] lg:rounded-lg">

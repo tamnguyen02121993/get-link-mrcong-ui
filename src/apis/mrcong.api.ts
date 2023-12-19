@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Category, Gallery, GalleryDetail } from "../interfaces";
+import { Category, GalleryDetail, GalleriesWithTrending } from "../interfaces";
 
 const httpClient = axios.create({
   baseURL: import.meta.env.VITE_APP_MRCONG_API_ENDPOINT,
@@ -15,10 +15,17 @@ export const getGalleriesByCategory = async (
   categoryName: string,
   page: number
 ) => {
-  const { data: galleries } = await httpClient.get<Gallery[]>(
+  const { data } = await httpClient.get<GalleriesWithTrending>(
     `/category/${categoryName}/page/${page}`
   );
-  return galleries;
+  return data;
+};
+
+export const getGalleriesByTag = async (tagName: string, page: number) => {
+  const { data } = await httpClient.get<GalleriesWithTrending>(
+    `/tag/${tagName}/page/${page}`
+  );
+  return data;
 };
 
 export const getGalleryDetail = async (link: string) => {
@@ -26,4 +33,9 @@ export const getGalleryDetail = async (link: string) => {
     `/detail?link=${link}`
   );
   return galleryDetail;
+};
+
+export const getGalleries = async (page: number) => {
+  const { data } = await httpClient.get<GalleriesWithTrending>(`/page/${page}`);
+  return data;
 };

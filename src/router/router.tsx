@@ -1,6 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { Galleries, GalleryDetailComp, Error } from "../pages";
+import {
+  GalleriesByCategory,
+  GalleriesByTag,
+  GalleryDetailComp,
+  Error,
+  Home,
+} from "../pages";
 
 export const router = createBrowserRouter([
   {
@@ -9,19 +15,32 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: (
-          <>
-            <h1>Please select your category</h1>
-          </>
-        ),
-      },
-      {
-        path: ":category/:page",
-        element: <Galleries />,
+        element: <Home />,
         errorElement: <Error />,
       },
       {
-        path: ":category/:page/detail",
+        path: "page/:page",
+        element: <Home />,
+        errorElement: <Error />,
+      },
+      {
+        path: ":page",
+        element: <Home />,
+        errorElement: <Error />,
+      },
+      {
+        path: "tag/:tag/page/:page",
+        element: <GalleriesByTag />,
+        errorElement: <Error />,
+      },
+      {
+        path: "category/:category/page/:page",
+        element: <GalleriesByCategory />,
+        errorElement: <Error />,
+      },
+      {
+        // path: ":category/:page/detail",
+        path: "detail",
         element: <GalleryDetailComp />,
         errorElement: <Error />,
       },
