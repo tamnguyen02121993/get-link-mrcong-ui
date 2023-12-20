@@ -4,3 +4,6 @@ export { default as Loading } from "./loading";
 export { default as GalleryItem } from "./galleryItem";
 export { default as ScrollTop } from "./scrollTop";
 export { default as Pagination } from "./pagination";
+export { default as TrendingItem } from "./trendingItem";
+export { default as RelatedItem } from "./relatedItem";
+export { default as RelatedItems } from "./relatedItems";

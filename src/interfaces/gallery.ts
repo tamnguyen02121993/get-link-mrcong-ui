@@ -9,6 +9,15 @@ export interface Trending {
   };
 }
 
+export interface RelatedGallery {
+  url: string;
+  title: string;
+  img: {
+    src: string;
+    srcSet: string;
+  };
+}
+
 export interface Gallery {
   title: string;
   href: string;

@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { GalleriesWithTrending, Gallery } from "../interfaces";
+import { GalleriesWithTrending, Gallery, Trending } from "../interfaces";
 import { QUERY_KEYS } from "../commons/keys";
 import { getGalleriesByCategory } from "../apis";
 import { Navigate, useParams } from "react-router-dom";
-import { GalleryItem, Loading, Pagination } from "../components";
+import { PiStarFourBold } from "react-icons/pi";
+import { GalleryItem, Loading, Pagination, TrendingItem } from "../components";
 import { useCategoriesStore, usePaginationStore } from "../store";
 import { useInitData } from "../hooks";
 
@@ -25,16 +26,33 @@ const Galleries: React.FC = () => {
   });
   return (
     <>
-      <section className="flex flex-col gap-y-4">
+      <div className="flex flex-row flex-wrap md:flex-nowrap gap-4">
         {isLoadingError && Navigate({ to: "/error" })}
         {isLoading && !isLoadingError && <Loading />}
-        {selectedCategory &&
-          !isLoading &&
-          !isLoadingError &&
-          data?.items.map((gallery: Gallery) => (
-            <GalleryItem gallery={gallery} key={gallery.title} />
-          ))}
-      </section>
+        <section className="flex flex-col gap-y-4 md:flex-grow">
+          {selectedCategory &&
+            !isLoading &&
+            !isLoadingError &&
+            data?.items.map((gallery: Gallery) => (
+              <GalleryItem gallery={gallery} key={gallery.title} />
+            ))}
+        </section>
+        <section className="border-gray-200 pl-4 md:border-l lg:basis-[350px] md:basis-[250px] md:flex-shrink-0">
+          <h3 className="font-semibold text-xl text-gray-700 mb-4 flex flex-row items-center gap-x-2">
+            <PiStarFourBold />
+            <span>Trending</span>
+            <PiStarFourBold />
+          </h3>
+          <div className="flex flex-col gap-y-4">
+            {selectedCategory &&
+              !isLoading &&
+              !isLoadingError &&
+              data?.trending.map((trending: Trending) => (
+                <TrendingItem {...trending} key={trending.href} />
+              ))}
+          </div>
+        </section>
+      </div>
       {selectedCategory && <Pagination />}
     </>
   );

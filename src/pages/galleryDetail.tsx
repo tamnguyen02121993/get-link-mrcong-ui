@@ -3,10 +3,11 @@ import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import Lightbox from "react-image-lightbox";
 import { FiChevronLeft } from "react-icons/fi";
-import { getGalleryDetail } from "../apis";
+import { FiLink } from "react-icons/fi";
+import { getGalleryDetail, getRelatedGalleries } from "../apis";
 import { QUERY_KEYS } from "../commons/keys";
-import { GalleryDetail } from "../interfaces";
-import { Loading } from "../components";
+import { GalleryDetail, RelatedGallery } from "../interfaces";
+import { Loading, RelatedItems } from "../components";
 const GalleryDetailComp: React.FC = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
@@ -18,6 +19,16 @@ const GalleryDetailComp: React.FC = () => {
   } = useQuery<GalleryDetail>({
     queryKey: [QUERY_KEYS.GALLERY_DETAIL, { link: params.get("link") }],
     queryFn: () => getGalleryDetail(params.get("link") || ""),
+    staleTime: import.meta.env.VITE_APP_STALE_TIME,
+  });
+
+  const {
+    data: relatedItems,
+    isLoading: isLoadingRelatedItems,
+    isLoadingError: isLoadingErrorRelatedItems,
+  } = useQuery<RelatedGallery[]>({
+    queryKey: [QUERY_KEYS.GALLERIES_RELATED, { link: params.get("link") }],
+    queryFn: () => getRelatedGalleries(params.get("link") || ""),
     staleTime: import.meta.env.VITE_APP_STALE_TIME,
   });
   const [isOpen, setIsOpen] = useState(false);
@@ -33,20 +44,22 @@ const GalleryDetailComp: React.FC = () => {
   };
   return (
     <>
-      <button
-        className={
-          "mb-4 border border-gray-200 rounded-lg shadow-sm py-2 px-4 transition-all duration-300 bg-pink-300 text-white hover:bg-pink-400 inline-flex flex-row justify-between items-center"
-        }
-        onClick={handleBack}
-      >
-        <FiChevronLeft /> <span>Back</span>
-      </button>
+      {!isLoading && !isLoadingError && (
+        <button
+          className={
+            "mb-4 border border-gray-200 rounded-lg shadow-sm py-2 px-4 transition-all duration-300 bg-pink-300 text-white hover:bg-pink-400 inline-flex flex-row justify-between items-center"
+          }
+          onClick={handleBack}
+        >
+          <FiChevronLeft /> <span>Back</span>
+        </button>
+      )}
       <section className="flex flex-col gap-y-4">
         {isLoadingError && Navigate({ to: "/error" })}
         {isLoading && !isLoadingError && <Loading />}
         {!isLoading && !isLoadingError && galleryDetail && (
           <>
-            <div className="flex flex-col gap-y-4">
+            <div className="flex flex-col gap-y-4 [&>*:nth-child(6):hover]:text-pink-300 [&>*:nth-child(6):hover]:cursor-pointer">
               {galleryDetail.info.map((x) => (
                 <div className="text-xl break-words" key={x}>
                   {x}
@@ -125,6 +138,17 @@ const GalleryDetailComp: React.FC = () => {
             )}
           </>
         )}
+      </section>
+
+      <section className="mt-4">
+        <h3 className="font-semibold text-xl text-gray-700 mb-4 flex flex-row items-center gap-x-2">
+          <FiLink />
+          <span>Related</span>
+        </h3>
+        <hr className="my-4" />
+        {!isLoadingRelatedItems &&
+          !isLoadingErrorRelatedItems &&
+          relatedItems && <RelatedItems galleries={relatedItems} />}
       </section>
     </>
   );
