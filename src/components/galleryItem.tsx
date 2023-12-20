@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FiTag } from "react-icons/fi";
-import { FaRegImages, FaExternalLinkAlt } from "react-icons/fa";
+import { FaRegImages } from "react-icons/fa";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { Gallery, Tag } from "../interfaces";
 
