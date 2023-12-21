@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import CategoryItem from "./categoryItem";
-import { QUERY_KEYS } from "../commons/keys";
+import { QUERY_KEYS } from "../commons";
 import { getCategories } from "../apis";
 import { Category } from "../interfaces";
 import { Loading } from ".";

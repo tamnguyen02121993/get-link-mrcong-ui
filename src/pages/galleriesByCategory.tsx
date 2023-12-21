@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { GalleriesWithTrending, Gallery, Trending } from "../interfaces";
-import { QUERY_KEYS } from "../commons/keys";
+import { QUERY_KEYS } from "../commons";
 import { getGalleriesByCategory } from "../apis";
 import { Navigate, useParams } from "react-router-dom";
 import { PiStarFourBold } from "react-icons/pi";

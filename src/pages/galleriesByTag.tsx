@@ -2,7 +2,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { GalleryItem, Loading, Pagination, TrendingItem } from "../components";
 import { useQuery } from "@tanstack/react-query";
 import { Gallery, GalleriesWithTrending, Trending } from "../interfaces";
-import { QUERY_KEYS } from "../commons/keys";
+import { QUERY_KEYS } from "../commons";
 import { getGalleriesByTag } from "../apis";
 import { usePaginationStore } from "../store";
 import { useInitData } from "../hooks";

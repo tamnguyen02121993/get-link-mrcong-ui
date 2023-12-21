@@ -5,7 +5,7 @@ import Lightbox from "react-image-lightbox";
 import { FiChevronLeft } from "react-icons/fi";
 import { FiLink } from "react-icons/fi";
 import { getGalleryDetail, getRelatedGalleries } from "../apis";
-import { QUERY_KEYS } from "../commons/keys";
+import { QUERY_KEYS } from "../commons";
 import { GalleryDetail, RelatedGallery } from "../interfaces";
 import { Loading, RelatedItems } from "../components";
 const GalleryDetailComp: React.FC = () => {

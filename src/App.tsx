@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Categories, Header, ScrollTop } from "./components";
+import { Categories, Endpoint, Header, ScrollTop } from "./components";
 
 const App: React.FC = () => {
   return (
@@ -16,6 +16,7 @@ const App: React.FC = () => {
         </div>
       </div>
       <ScrollTop />
+      <Endpoint />
     </div>
   );
 };

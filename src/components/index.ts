@@ -7,3 +7,4 @@ export { default as Pagination } from "./pagination";
 export { default as TrendingItem } from "./trendingItem";
 export { default as RelatedItem } from "./relatedItem";
 export { default as RelatedItems } from "./relatedItems";
+export { default as Endpoint } from "./endpoint";
