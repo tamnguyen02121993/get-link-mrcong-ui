@@ -19,7 +19,7 @@ const GalleriesByTag: React.FC = () => {
   const { tag, page } = useParams();
   const { page: currentPage } = usePaginationStore((state) => state);
   const { data, isLoading, isLoadingError } = useQuery<GalleriesWithTrending>({
-    queryKey: [QUERY_KEYS.GALLERIES_HOMEPAGE, { page }],
+    queryKey: [QUERY_KEYS.GALLERIES_BY_TAG, { page, tag }],
     queryFn: () => {
       return getGalleriesByTag(
         tag ? tag.toLowerCase().replace(" ", "") : "",

@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import Lightbox from "react-image-lightbox";
-import { FiChevronLeft } from "react-icons/fi";
+import { FiChevronLeft, FiTag } from "react-icons/fi";
 import { FiLink } from "react-icons/fi";
 import { getGalleryDetail, getRelatedGalleries } from "../apis";
 import { QUERY_KEYS } from "../commons";
-import { GalleryDetail, RelatedGallery } from "../interfaces";
+import { GalleryDetail, RelatedGallery, Tag } from "../interfaces";
 import { Loading, RelatedItems } from "../components";
 const GalleryDetailComp: React.FC = () => {
   const navigate = useNavigate();
@@ -86,6 +86,24 @@ const GalleryDetailComp: React.FC = () => {
                   >
                     {galleryDetail.downloadLink.convertedLink}
                   </Link>
+                </div>
+              </div>
+              <div className="flex flex-col gap-y-2">
+                <h3 className="font-semibold text-xl text-gray-700 flex flex-row items-center gap-x-2">
+                  <FiTag /> <span>Tags</span>
+                </h3>
+                <div className="flex flex-row flex-wrap gap-2">
+                  {galleryDetail.tags.map((x: Tag) => (
+                    <Link
+                      to={`/tag/${x.tagName
+                        .toLowerCase()
+                        .replace(/ /g, "-")}/page/1`}
+                      key={x.tagName}
+                      className="px-4 py-2 border rounded-lg transition-all duration-300 text-pink-300 hover:text-white hover:bg-pink-300"
+                    >
+                      <p>{x.tagName}</p>
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
