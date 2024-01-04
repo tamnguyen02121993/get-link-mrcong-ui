@@ -12,9 +12,9 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
   selected,
   onHandleClick,
 }) => {
-  const handleClick = (Category: Category) => {
+  const handleClick = (_category: Category) => {
     if (onHandleClick) {
-      onHandleClick(Category);
+      onHandleClick(_category);
     }
   };
   return (

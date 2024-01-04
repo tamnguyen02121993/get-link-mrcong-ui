@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import CategoryItem from "./categoryItem";
 import { QUERY_KEYS } from "../commons";
 import { getCategories } from "../apis";
 import { Category } from "../interfaces";
-import { Loading } from ".";
+import { Loading, CategoryItem } from ".";
 import { useCategoriesStore, usePaginationStore } from "../store";
 
 const Categories: React.FC = () => {

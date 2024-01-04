@@ -1,5 +1,6 @@
 export { default as Header } from "./header";
 export { default as Categories } from "./categories";
+export { default as CategoryItem } from "./categoryItem";
 export { default as Loading } from "./loading";
 export { default as GalleryItem } from "./galleryItem";
 export { default as ScrollTop } from "./scrollTop";
@@ -8,3 +9,5 @@ export { default as TrendingItem } from "./trendingItem";
 export { default as RelatedItem } from "./relatedItem";
 export { default as RelatedItems } from "./relatedItems";
 export { default as Endpoint } from "./endpoint";
+export { default as FavoriteModels } from "./favoriteModels";
+export { default as FavoriteModelItem } from "./favoriteModelItem";

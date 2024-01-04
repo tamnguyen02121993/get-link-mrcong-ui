@@ -73,3 +73,10 @@ export const getRelatedGalleries = async (link: string) => {
   );
   return data;
 };
+
+export const getFavoriteModels = async () => {
+  const { data: models } = await httpClient.get<string[]>("/models.json", {
+    baseURL: _getBaseUrl().replace("/api/mrcong", ""),
+  });
+  return models;
+};
