@@ -4,6 +4,7 @@ import {
   GalleryDetail,
   GalleriesWithTrending,
   RelatedGallery,
+  GalleryFirstDetail,
 } from "../interfaces";
 import { useApiEndpointStore } from "../store";
 
@@ -47,13 +48,26 @@ export const getGalleriesByTag = async (tagName: string, page: number) => {
 };
 
 export const getGalleryDetail = async (link: string) => {
-  const { data: galleryDetail } = await httpClient.get<GalleryDetail>(
-    `/detail?link=${link}`,
+  const { data: galleryFirstDetail } = await httpClient.get<GalleryFirstDetail>(
+    `/first-detail?link=${link}`,
     {
       baseURL: _getBaseUrl(),
     }
   );
-  return galleryDetail;
+  const { totalPages, ...galleryDetail } = galleryFirstDetail;
+  if (totalPages === 1) {
+    return galleryDetail;
+  }
+  for (let index = 2; index <= totalPages; index++) {
+    const { data: galleryAnothertDetail } = await httpClient.get<string[]>(
+      `/another-detail?link=${link}/${index}`,
+      {
+        baseURL: _getBaseUrl(),
+      }
+    );
+    galleryDetail.imageList.push(...galleryAnothertDetail);
+  }
+  return galleryDetail as GalleryDetail;
 };
 
 export const getGalleries = async (page: number) => {

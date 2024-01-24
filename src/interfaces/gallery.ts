@@ -42,3 +42,7 @@ export interface GalleryDetail {
   tags: Tag[];
   imageList: string[];
 }
+
+export interface GalleryFirstDetail extends GalleryDetail {
+  totalPages: number;
+}
