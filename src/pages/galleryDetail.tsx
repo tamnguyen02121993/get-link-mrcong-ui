@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
-import { useState } from "react";
-import Lightbox from "react-image-lightbox";
+// import { useState } from "react";
+// import Lightbox from "react-image-lightbox";
 import { FiChevronLeft, FiTag } from "react-icons/fi";
 import { FiLink } from "react-icons/fi";
 import { getGalleryDetail, getRelatedGalleries } from "../apis";
@@ -31,13 +31,13 @@ const GalleryDetailComp: React.FC = () => {
     queryFn: () => getRelatedGalleries(params.get("link") || ""),
     staleTime: import.meta.env.VITE_APP_STALE_TIME,
   });
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const handleOnClick = (src: string) => {
-    setIsOpen(true);
-    const index = galleryDetail?.imageList.findIndex((x) => x === src);
-    setCurrentIndex(index!);
-  };
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [currentIndex, setCurrentIndex] = useState<number>(0);
+  // const handleOnClick = (src: string) => {
+  //   setIsOpen(true);
+  //   const index = galleryDetail?.imageList.findIndex((x) => x === src);
+  //   setCurrentIndex(index!);
+  // };
 
   const handleBack = () => {
     navigate(-1);
@@ -109,13 +109,15 @@ const GalleryDetailComp: React.FC = () => {
             </div>
             <div className="gap-4 columns-1 sm:columns-2 sm:gap-8 md:columns-3 lg:columns-4 [&>img:not(:first-child)]:mt-8">
               {galleryDetail.imageList.map((x) => (
-                <img
-                  key={x}
-                  src={x}
-                  alt={x}
-                  className="object-cover rounded-lg cursor-pointer"
-                  onClick={() => handleOnClick(x)}
-                />
+                <picture key={x}>
+                  <source src={x} type="image/webp"></source>
+                  <img
+                    src={x}
+                    alt={x}
+                    className="object-cover rounded-lg cursor-pointer"
+                    // onClick={() => handleOnClick(x)}
+                  />
+                </picture>
               ))}
             </div>
 
