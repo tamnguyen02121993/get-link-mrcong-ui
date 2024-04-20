@@ -119,7 +119,7 @@ const GalleryDetailComp: React.FC = () => {
               ))}
             </div>
 
-            {isOpen && galleryDetail && (
+            {/* {isOpen && galleryDetail && (
               <Lightbox
                 enableZoom
                 mainSrc={galleryDetail.imageList[currentIndex]}
@@ -153,7 +153,7 @@ const GalleryDetailComp: React.FC = () => {
                   )
                 }
               />
-            )}
+            )} */}
           </>
         )}
       </section>
