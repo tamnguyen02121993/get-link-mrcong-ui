@@ -114,6 +114,7 @@ const GalleryDetailComp: React.FC = () => {
                   <img
                     src={x}
                     alt={x}
+                    decoding="async"
                     className="object-cover rounded-lg cursor-pointer"
                     // onClick={() => handleOnClick(x)}
                   />
