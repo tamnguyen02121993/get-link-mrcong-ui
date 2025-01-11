@@ -59,8 +59,13 @@ export const getGalleryDetail = async (link: string) => {
     return galleryDetail;
   }
   for (let index = 2; index <= totalPages; index++) {
+    let anotherLink = `${link}/${index}`;
+    if (link.endsWith("/")) {
+      anotherLink = `${link}${index}`;
+    }
+
     const { data: galleryAnothertDetail } = await httpClient.get<string[]>(
-      `/another-detail?link=${link}/${index}`,
+      `/another-detail?link=${anotherLink}`,
       {
         baseURL: _getBaseUrl(),
       }
