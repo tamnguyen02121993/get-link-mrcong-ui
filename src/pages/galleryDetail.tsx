@@ -8,7 +8,9 @@ import { getGalleryDetail, getRelatedGalleries } from "../apis";
 import { QUERY_KEYS } from "../commons";
 import { GalleryDetail, RelatedGallery, Tag } from "../interfaces";
 import { Loading, RelatedItems } from "../components";
-const GalleryDetailComp: React.FC = () => {
+import Lightbox from "react-image-lightbox";
+import { useState } from "react";
+const GalleryDetailComp: React.FC<{}> = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
 
@@ -31,13 +33,13 @@ const GalleryDetailComp: React.FC = () => {
     queryFn: () => getRelatedGalleries(params.get("link") || ""),
     staleTime: import.meta.env.VITE_APP_STALE_TIME,
   });
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [currentIndex, setCurrentIndex] = useState<number>(0);
-  // const handleOnClick = (src: string) => {
-  //   setIsOpen(true);
-  //   const index = galleryDetail?.imageList.findIndex((x) => x === src);
-  //   setCurrentIndex(index!);
-  // };
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const handleOnClick = (src: string) => {
+    setIsOpen(true);
+    const index = galleryDetail?.imageList.findIndex((x) => x === src);
+    setCurrentIndex(index!);
+  };
 
   const handleBack = () => {
     navigate(-1);
@@ -116,13 +118,13 @@ const GalleryDetailComp: React.FC = () => {
                     alt={x}
                     decoding="async"
                     className="object-cover rounded-lg cursor-pointer"
-                    // onClick={() => handleOnClick(x)}
+                    onClick={() => handleOnClick(x)}
                   />
                 </picture>
               ))}
             </div>
 
-            {/* {isOpen && galleryDetail && (
+            {isOpen && galleryDetail && (
               <Lightbox
                 enableZoom
                 mainSrc={galleryDetail.imageList[currentIndex]}
@@ -156,7 +158,7 @@ const GalleryDetailComp: React.FC = () => {
                   )
                 }
               />
-            )} */}
+            )}
           </>
         )}
       </section>
